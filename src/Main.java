@@ -26,7 +26,7 @@ public class Main {
     //Sparar allt innehåll i textfilen in i ArrayList för Booking
     private void startSavedTxtToList(){
         String rad;
-        String radAktivitet
+        String radAktivitet;
         byte aktivitet;
         int deltagare;
         int pris;
