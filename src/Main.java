@@ -12,7 +12,7 @@ public class Main {
 // - En metod som visar alla registrerade bokningar.
 // - En metod som visar sammanställningen.
 
-    static List<Booking> aktivtBokningsminne = new ArrayList<>(); //Aktiva databasen i RAM. Så länge programmet körs är den tillgänglig
+    List<Booking> aktivtBokningsminne = new ArrayList<>(); //Aktiva databasen i RAM. Så länge programmet körs är den tillgänglig
     static String statFilnamn = "SparadeBokningar.txt";
 
     public void main(String[] args) {
@@ -34,7 +34,7 @@ public class Main {
             Scanner fil = new Scanner(new File(statFilnamn));
             while (fil.hasNext()) {     //Går igenom varige rad i filen och konverterar Sträng raderna så att konstruktorn kan ta emot dem
                 rad = fil.nextLine();
-                radAktivitet = (rad.substring(0, rad.indexOf(',')-1).trim());
+                radAktivitet = (rad.substring(0, rad.indexOf(',')).trim());
                 if (radAktivitet.equals("Programmeringsworkshop")) {    //Omvandlar Strängen "Programmeringsworkshop" till dess värde för att sparas
                     aktivitet = 1;
                 } else if (radAktivitet.equals("Matlagningskurs")) {
@@ -42,7 +42,7 @@ public class Main {
                 } else if (radAktivitet.equals("Träningspass")) {
                     aktivitet = 3;
                 } else {
-                    throw new IllegalArgumentException("Det är inte korrekt innehåll i filen på raden");
+                    throw new IllegalArgumentException("Det är inte korrekt innehåll i filen på raden: " + radAktivitet);
                 }
                 deltagare = Integer.parseInt(rad.substring(rad.indexOf(',')+1, rad.lastIndexOf(',')-9).trim()); //-9 då "deltagare" inte ska med
                 pris = Integer.parseInt(rad.substring(rad.lastIndexOf(',')+1, rad.lastIndexOf('k')).trim());
@@ -58,7 +58,7 @@ public class Main {
         byte menyVal = 0;
         while(true){
             //Skriv ut meny
-            System.out.print("AKTIVITETSBOKAREN\n" + "1. Registrera bokning\n" + "2. Visa alla bokningar\n" + "3. Visa sammanställning\n" + "4. Avsluta");
+            System.out.println("AKTIVITETSBOKAREN\n" + "1. Registrera bokning\n" + "2. Visa alla bokningar\n" + "3. Visa sammanställning\n" + "4. Avsluta");
 
             //Läs av menyval
             while (true) {
@@ -81,6 +81,13 @@ public class Main {
 
             //else if 2, visa alla bokningar
             else if (menyVal==2) {
+                //TESTKOD// Denna kod testar att information sparas och laddas.
+                for (Booking i : aktivtBokningsminne) {
+                    byte a = i.getAktivitetsnummer();
+                    int d = i.getAntalDeltagare();
+                    int p = i.getSlutpris();
+                    System.out.println(a+":"+d+":"+p);
+                }
                 // ///////////////////////////////////TOM////////////////////////
             }
 
@@ -187,6 +194,7 @@ public class Main {
         try {
             PrintWriter skriv = new PrintWriter(new BufferedWriter(new FileWriter(filnamn, true)));
             skriv.println(text);
+            skriv.close();
         }catch (IOException e){
             System.out.println("Error");
         }
