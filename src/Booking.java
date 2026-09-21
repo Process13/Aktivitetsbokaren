@@ -1,15 +1,15 @@
 public class Booking {
-        private int aktivitetsnummer;
+        private byte aktivitetsnummer;
         private int antalDeltagare;
         private int slutpris;
 
-        public Booking(int a, int d, int p){
+        public Booking(byte a, int d, int p){
             setAktivitetsnummer(a);
             setAntalDeltagare(d);
             setSlutpris(p);
         }
 
-        private void setAktivitetsnummer(int a){
+        private void setAktivitetsnummer(byte a){
             if (a == 1 || a == 2 || a == 3) {
                 this.aktivitetsnummer = a;
             }
@@ -36,15 +36,18 @@ public class Booking {
             }
         }
 
-    public int getAktivitetsnummer() {
+        //- En metod som returnerar aktivitetsnumret.
+        public byte getAktivitetsnummer() {
         return aktivitetsnummer;
-    }
+        }
 
-    public int getAntalDeltagare() {
+        //- En metod som returnerar antal deltagare.
+        public int getAntalDeltagare() {
         return antalDeltagare;
-    }
+        }
 
-    public int getSlutpris() {
+        //- En metod som returnerar slutpriset.
+        public int getSlutpris() {
         return slutpris;
-    }
+        }
 }
