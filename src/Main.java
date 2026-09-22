@@ -1,4 +1,3 @@
-import java.awt.print.Book;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +43,19 @@ public class Main {
                 } else {
                     throw new IllegalArgumentException("Det är inte korrekt innehåll i filen på raden: " + radAktivitet);
                 }
-                deltagare = Integer.parseInt(rad.substring(rad.indexOf(',')+1, rad.lastIndexOf(',')-9).trim()); //-9 då "deltagare" inte ska med
-                pris = Integer.parseInt(rad.substring(rad.lastIndexOf(',')+1, rad.lastIndexOf('k')).trim());
+                String deltagareStr = rad.substring(
+                        rad.indexOf(",") + 1,
+                        rad.indexOf("deltagare")
+                ).trim();
+
+                deltagare = Integer.parseInt(deltagareStr);
+
+                String prisStr = rad.substring(
+                        rad.lastIndexOf(",") + 1,
+                        rad.indexOf("kr")
+                ).trim();
+
+                pris = Integer.parseInt(prisStr);
                 aktivtBokningsminne.add(new Booking(aktivitet, deltagare, pris)); //Konstruktorn anroppas och det sparade värdet lagras
             }
         } catch (IOException e) {
@@ -80,15 +90,8 @@ public class Main {
             }
 
             //else if 2, visa alla bokningar
-            else if (menyVal==2) {
-                //TESTKOD// Denna kod testar att information sparas och laddas.
-                for (Booking i : aktivtBokningsminne) {
-                    byte a = i.getAktivitetsnummer();
-                    int d = i.getAntalDeltagare();
-                    int p = i.getSlutpris();
-                    System.out.println(a+":"+d+":"+p);
-                }
-                // ///////////////////////////////////TOM////////////////////////
+            else if (menyVal == 2) {
+                visaAllaBokningar();
             }
 
             //else if 3, visa sammanställning
@@ -177,17 +180,39 @@ public class Main {
 
         //Spara registreringen i textfilen
         skrivLnTillFil(statFilnamn, s);
-
     }
 
     //Metod för att visa alla registrerade bokningar
+    private void visaAllaBokningar() {
 
-        //Ta emot ArrayList med de sparade registreringarna
+        int bokningNummer = 1;
 
-        //Sortera Listan
+        for (Booking i : aktivtBokningsminne) {
 
-        //Skriv ut Listan
+            byte a = i.getAktivitetsnummer();
+            int d = i.getAntalDeltagare();
+            int p = i.getSlutpris();
 
+            String aktivitetStr;
+
+            if (a == 1) {
+                aktivitetStr = "Programmeringsworkshop";
+            } else if (a == 2) {
+                aktivitetStr = "Matlagningskurs";
+            } else {
+                aktivitetStr = "Träningspass";
+            }
+
+            System.out.println(
+                    "Bokning " + bokningNummer + ": " +
+                            aktivitetStr + ", " +
+                            d + " deltagare, " +
+                            p + " kr"
+            );
+
+            bokningNummer++;
+        }
+    }
 
     //Skriver en rad text till en fil
     public static void skrivLnTillFil(String filnamn, String text){
