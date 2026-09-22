@@ -1,0 +1,13 @@
+Träningspass, 2 deltagare, 300 kr
+Matlagningskurs, 4 deltagare, 1200 kr
+Träningspass, 33 deltagare, 4950 kr
+Matlagningskurs, 2 deltagare, 600 kr
+Träningspass, 77 deltagare, 11550 kr
+Programmeringsworkshop, 99999 deltagare, 19999800 kr
+Träningspass, 33 deltagare, 4950 kr
+Matlagningskurs, 33 deltagare, 9900 kr
+Matlagningskurs, 3 deltagare, 900 kr
+Programmeringsworkshop, 1 deltagare, 200 kr
+Träningspass, 55 deltagare, 8250 kr
+Träningspass, 90 deltagare, 13500 kr
+Matlagningskurs, 55 deltagare, 16500 kr
