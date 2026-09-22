@@ -3,7 +3,12 @@ public class Booking {
         private int antalDeltagare;
         private int slutpris;
 
+<<<<<<< Updated upstream
         public Booking(byte a, int d, int p){
+=======
+
+        public Booking(int a, int d, int p){
+>>>>>>> Stashed changes
             setAktivitetsnummer(a);
             setAntalDeltagare(d);
             setSlutpris(p);
@@ -36,8 +41,14 @@ public class Booking {
             }
         }
 
+<<<<<<< Updated upstream
         //- En metod som returnerar aktivitetsnumret.
         public byte getAktivitetsnummer() {
+=======
+
+
+    public int getAktivitetsnummer() {
+>>>>>>> Stashed changes
         return aktivitetsnummer;
         }
 
@@ -49,5 +60,11 @@ public class Booking {
         //- En metod som returnerar slutpriset.
         public int getSlutpris() {
         return slutpris;
+<<<<<<< Updated upstream
         }
+=======
+    }
+
+
+>>>>>>> Stashed changes
 }
