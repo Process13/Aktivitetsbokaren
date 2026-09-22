@@ -140,7 +140,7 @@ public class Main {
         // Skriv ut sammanställningen
         System.out.println("\nSAMMANSTÄLLNING");
         System.out.println("Totalt antal bokningar: " + totaltAntalBokningar);
-        System.out.println("Totalt bokningsvärde: " + totaltBokningsvärde + " kr");
+        System.out.format("Totalt bokningsvärde: %,3d kr\n", totaltBokningsvärde);
         System.out.println("Programmeringsworkshop: " + antalProgrammeringsworkshop + " bokningar");
         System.out.println("Matlagningskurs: " + antalMatlagningskurs + " bokningar");
         System.out.println("Träningspass: " + antalTräningspass + " bokningar");
