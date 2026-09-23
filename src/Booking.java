@@ -12,18 +12,20 @@ public class Booking {
     private void setAktivitetsnummer(byte a){
         if (a == 1 || a == 2 || a == 3) {
             this.aktivitetsnummer = a;
-        }
-        else {
-            throw new IllegalArgumentException("Aktiviteten finns inte");
+        } else {
+            throw new IllegalArgumentException(
+                    "Aktiviteten måste vara 1, 2 eller 3."
+            );
         }
     }
 
-    private void setAntalDeltagare(int d){
-        if (d>0 && d< 2000000000) {
+    private void setAntalDeltagare(int d) {
+        if (d > 0) {
             this.antalDeltagare = d;
-        }
-        else {
-            throw new IllegalArgumentException("Ogiltigt antal deltagare");
+        } else {
+            throw new IllegalArgumentException(
+                    "Antalet deltagare måste vara större än 0."
+            );
         }
     }
 

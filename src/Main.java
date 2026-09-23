@@ -14,12 +14,14 @@ public class Main {
     List<Booking> aktivtBokningsminne = new ArrayList<>(); //Aktiva databasen i RAM. Så länge programmet körs är den tillgänglig
     static String statFilnamn = "SparadeBokningar.txt";
 
-    public void main(String[] args) {
-        //Metod för att läsa in bokningar från .txt till ArrayList booking
-        startSavedTxtToList();
-        //Kalla på meny
-        meny();
+    private Scanner scan = new Scanner(System.in);
 
+    public static void main(String[] args) {
+        Main program = new Main();
+        //Metod för att läsa in bokningar från .txt till ArrayList booking
+        program.startSavedTxtToList();
+        //Kalla på meny
+        program.meny();
     }
 
     //Sparar allt innehåll i textfilen in i ArrayList för Booking
@@ -72,10 +74,25 @@ public class Main {
 
             //Läs av menyval
             while (true) {
-                Scanner scan = new Scanner(System.in);
+
                 if (scan.hasNextByte()) {
                     menyVal = scan.nextByte();
-                    break;
+
+                    if (menyVal == 4) {
+                        break;
+                    } else if (menyVal == 1) {
+                        registreraBokning();
+                    } else if (menyVal == 2) {
+                        visaAllaBokningar();
+                    } else if (menyVal == 3) {
+                        visaSammanställning();
+                    } else {
+                        System.out.println("Ogiltigt alternativ. Välj 1-4.");
+                    }
+
+                } else {
+                    System.out.println("Ogiltig inmatning. Ange ett nummer mellan 1 och 4.");
+                    scan.next();
                 }
             }
 
@@ -170,33 +187,48 @@ public class Main {
 
         //Aktivitetsnummer
         System.out.println("Vilken aktivitet gäller registreringen?\n1. Programmeringsworkshop\n2. Matlagningskurs\n3. Träningspass");
-        while (true) {  //Läser in vilken aktivitet som ska registreras
-            Scanner scanA = new Scanner(System.in);
-            if (scanA.hasNextByte()) {
-                aktivitet = scanA.nextByte();
-                if (aktivitet > 0 && aktivitet <= 3) {  //Är nummret som angavs en aktivitet?
+        while (true) {
+
+            if (scan.hasNextByte()) {
+
+                aktivitet = scan.nextByte();
+
+                if (aktivitet >= 1 && aktivitet <= 3) {
                     break;
                 } else {
-                    System.out.println("\nAktiviteten finns inte.");
+                    System.out.println("Aktiviteten finns inte. Välj 1, 2 eller 3.");
                 }
+
             } else {
-                throw new IllegalArgumentException("Aktiviteten finns inte");
+
+                System.out.println("Ogiltig inmatning. Ange ett nummer mellan 1 och 3.");
+                scan.next();
             }
         }
 
         //Deltagare
         System.out.print("Hur många deltagare vill du registrera för aktiviteten?\nAntal: ");
-        while (true){   //Läser in antal deltagare
-            Scanner scanD = new Scanner(System.in);
-            if (scanD.hasNextInt()){
-                deltagare = scanD.nextInt();
-                if (deltagare>0){
+        while (true) {
+
+            if (scan.hasNextInt()) {
+
+                deltagare = scan.nextInt();
+
+                if (deltagare > 0) {
                     break;
                 } else {
-                    System.out.println("\nFel värde för antal deltagare");
+                    System.out.println(
+                            "Fel värde för antal deltagare. Ange ett positivt antal."
+                    );
                 }
+
             } else {
-                throw new IllegalArgumentException("Fel värde för antal deltagare");
+
+                System.out.println(
+                        "Ogiltig inmatning. Ange ett heltal."
+                );
+
+                scan.next();
             }
         }
 
