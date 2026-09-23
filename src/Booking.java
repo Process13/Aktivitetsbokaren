@@ -9,6 +9,38 @@ public class Booking {
         setSlutpris(p);
     }
 
+    public static String aktivitetTillString(byte aktivitet) {
+        if (aktivitet == 1) {
+            return "Programmeringsworkshop";
+        } else if (aktivitet == 2) {
+            return "Matlagningskurs";
+        } else if (aktivitet == 3) {
+            return "Träningspass";
+        } else {
+            throw new IllegalArgumentException(
+                    "Aktiviteten finns inte"
+            );
+        }
+    }
+
+    public static byte stringTillAktivitet(String aktivitet) {
+        if (aktivitet.equals("Programmeringsworkshop")) {
+            return 1;
+        } else if (aktivitet.equals("Matlagningskurs")) {
+            return 2;
+        } else if (aktivitet.equals("Träningspass")) {
+            return 3;
+        } else {
+            throw new IllegalArgumentException(
+                    "Aktiviteten finns inte: " + aktivitet
+            );
+        }
+    }
+
+    public String getAktivitetsnamn() {
+        return aktivitetTillString(aktivitetsnummer);
+    }
+
     private void setAktivitetsnummer(byte a){
         if (a == 1 || a == 2 || a == 3) {
             this.aktivitetsnummer = a;

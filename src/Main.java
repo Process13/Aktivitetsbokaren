@@ -8,7 +8,7 @@ public class Main {
     List<Booking> aktivtBokningsminne = new ArrayList<>(); //Aktiva databasen i RAM. Så länge programmet körs är den tillgänglig
     static String statFilnamn = "SparadeBokningar.txt";
 
-    private Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
         Main program = new Main();
@@ -30,15 +30,7 @@ public class Main {
             while (fil.hasNext()) {     //Går igenom varige rad i filen och konverterar Sträng raderna så att konstruktorn kan ta emot dem
                 rad = fil.nextLine();
                 radAktivitet = (rad.substring(0, rad.indexOf(',')).trim());
-                if (radAktivitet.equals("Programmeringsworkshop")) {    //Omvandlar Strängen "Programmeringsworkshop" till dess värde för att sparas
-                    aktivitet = 1;
-                } else if (radAktivitet.equals("Matlagningskurs")) {
-                    aktivitet = 2;
-                } else if (radAktivitet.equals("Träningspass")) {
-                    aktivitet = 3;
-                } else {
-                    throw new IllegalArgumentException("Det är inte korrekt innehåll i filen på raden: " + radAktivitet);
-                }
+                aktivitet = Booking.stringTillAktivitet(radAktivitet);
                 String deltagareStr = rad.substring(
                         rad.indexOf(",") + 1,
                         rad.indexOf("deltagare")
@@ -59,7 +51,7 @@ public class Main {
         }
     }
 
-    //Metod som visar menyn
+    //Metoden som visar menyn
     void meny(){
         byte menyVal = 0;
         while(true){
@@ -118,7 +110,21 @@ public class Main {
 
     }
 
-    //Metod för att registrera bokning
+    //Metoden som beräkna priset för en bokning med ett antal deltagare
+    private int prisBeräkning(byte aktivitet, int deltagare){
+        int pris; //Int då inga priser innehåller decimaler
+        if (aktivitet==1) { //Programmeringsworkshop
+            return pris = 200*deltagare; //för 10 deltagare blir det "2000 kr"
+        } else if (aktivitet==2) { //Matlagningskurs
+            return pris = 300*deltagare;
+        } else if (aktivitet==3) { //Träningspass
+            return pris = 150*deltagare;
+        } else {
+            throw new IllegalArgumentException("Aktiviteten finns inte");
+        }
+    }
+
+    //Metoden som registrerar en bokning
     private void registreraBokning(){   //Ta emot bokningsinforrmation
         byte aktivitet;
         int deltagare;
@@ -177,13 +183,8 @@ public class Main {
         pris = prisBeräkning(aktivitet, deltagare);
 
         //Skriv ut aktivitet, antal deltagare och slutpris när bokningen registreras.
-        if (aktivitet == 1) {    //Aktivitet    byte -> string
-            aktivitetStr = "Programmeringsworkshop";
-        } else if (aktivitet == 2) {
-            aktivitetStr = "Matlagningskurs";
-        } else {
-            aktivitetStr = "Träningspass";
-        }
+        aktivitetStr = Booking.aktivitetTillString(aktivitet);
+
         s = aktivitetStr + ", " + deltagare + " deltagare, " + pris + " kr"; //Registreringen i Sträng
         System.out.println(s);
 
@@ -194,26 +195,17 @@ public class Main {
         skrivLnTillFil(statFilnamn, s);
     }
 
-    //Metod för att visa alla registrerade bokningar
+    //Metoden som visar alla registrerade bokningar
     private void visaAllaBokningar() {
 
         int bokningNummer = 1;
 
         for (Booking i : aktivtBokningsminne) {
 
-            byte a = i.getAktivitetsnummer();
             int d = i.getAntalDeltagare();
             int p = i.getSlutpris();
 
-            String aktivitetStr;
-
-            if (a == 1) {
-                aktivitetStr = "Programmeringsworkshop";
-            } else if (a == 2) {
-                aktivitetStr = "Matlagningskurs";
-            } else {
-                aktivitetStr = "Träningspass";
-            }
+            String aktivitetStr = i.getAktivitetsnamn();
 
             System.out.println(
                     "Bokning " + bokningNummer + ": " +
@@ -226,7 +218,7 @@ public class Main {
         }
     }
 
-    // Metod för att visa sammanställningen
+    // Metoden som visar sammanställningen
     private void visaSammanställning() {
 
         // Totalt antal bokningar
@@ -263,20 +255,6 @@ public class Main {
         System.out.println("Programmeringsworkshop: " + antalProgrammeringsworkshop + " bokningar");
         System.out.println("Matlagningskurs: " + antalMatlagningskurs + " bokningar");
         System.out.println("Träningspass: " + antalTräningspass + " bokningar");
-    }
-
-    //Metod för att beräkna priset för en aktivitet med ett antal deltagare
-    private int prisBeräkning(byte aktivitet, int deltagare){
-        int pris; //Int då inga priser innehåller decimaler
-        if (aktivitet==1) { //Programmeringsworkshop
-            return pris = 200*deltagare; //för 10 deltagare blir det "2000 kr"
-        } else if (aktivitet==2) { //Matlagningskurs
-            return pris = 300*deltagare;
-        } else if (aktivitet==3) { //Träningspass
-            return pris = 150*deltagare;
-        } else {
-            throw new IllegalArgumentException("Aktiviteten finns inte");
-        }
     }
 
     //Skriver en rad text till en fil
