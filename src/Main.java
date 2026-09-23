@@ -5,12 +5,6 @@ import java.util.Scanner;
 
 public class Main {
 
-// - En metod som visar menyn.
-// - En metod som beräknar priset för en bokning.
-// - En metod som registrerar en bokning och lagrar den.
-// - En metod som visar alla registrerade bokningar.
-// - En metod som visar sammanställningen.
-
     List<Booking> aktivtBokningsminne = new ArrayList<>(); //Aktiva databasen i RAM. Så länge programmet körs är den tillgänglig
     static String statFilnamn = "SparadeBokningar.txt";
 
@@ -124,59 +118,6 @@ public class Main {
 
     }
 
-    // Metod för att visa sammanställningen
-    private void visaSammanställning() {
-
-        // Totalt antal bokningar
-        int totaltAntalBokningar = aktivtBokningsminne.size();
-
-        // Totalt värde av alla bokningar
-        int totaltBokningsvärde = 0;
-
-        // Antal bokningar per aktivitet
-        int antalProgrammeringsworkshop = 0;
-        int antalMatlagningskurs = 0;
-        int antalTräningspass = 0;
-
-        // Gå igenom alla bokningar
-        for (Booking bokning : aktivtBokningsminne) {
-
-            // Lägg till priset för denna bokning
-            totaltBokningsvärde += bokning.getSlutpris();
-
-            // Räkna själva bokningen, inte deltagarna
-            if (bokning.getAktivitetsnummer() == 1) {
-                antalProgrammeringsworkshop++;
-            } else if (bokning.getAktivitetsnummer() == 2) {
-                antalMatlagningskurs++;
-            } else if (bokning.getAktivitetsnummer() == 3) {
-                antalTräningspass++;
-            }
-        }
-
-        // Skriv ut sammanställningen
-        System.out.println("\nSAMMANSTÄLLNING");
-        System.out.println("Totalt antal bokningar: " + totaltAntalBokningar);
-        System.out.format("Totalt bokningsvärde: %,3d kr\n", totaltBokningsvärde);
-        System.out.println("Programmeringsworkshop: " + antalProgrammeringsworkshop + " bokningar");
-        System.out.println("Matlagningskurs: " + antalMatlagningskurs + " bokningar");
-        System.out.println("Träningspass: " + antalTräningspass + " bokningar");
-    }
-
-    //Metod för att beräkna priset för en aktivitet med ett antal deltagare
-    private int prisBeräkning(byte aktivitet, int deltagare){
-        int pris; //Int då inga priser innehåller decimaler
-        if (aktivitet==1) { //Programmeringsworkshop
-            return pris = 200*deltagare; //för 10 deltagare blir det "2000 kr"
-        } else if (aktivitet==2) { //Matlagningskurs
-            return pris = 300*deltagare;
-        } else if (aktivitet==3) { //Träningspass
-            return pris = 150*deltagare;
-        } else {
-            throw new IllegalArgumentException("Aktiviteten finns inte");
-        }
-    }
-
     //Metod för att registrera bokning
     private void registreraBokning(){   //Ta emot bokningsinforrmation
         byte aktivitet;
@@ -282,6 +223,59 @@ public class Main {
             );
 
             bokningNummer++;
+        }
+    }
+
+    // Metod för att visa sammanställningen
+    private void visaSammanställning() {
+
+        // Totalt antal bokningar
+        int totaltAntalBokningar = aktivtBokningsminne.size();
+
+        // Totalt värde av alla bokningar
+        int totaltBokningsvärde = 0;
+
+        // Antal bokningar per aktivitet
+        int antalProgrammeringsworkshop = 0;
+        int antalMatlagningskurs = 0;
+        int antalTräningspass = 0;
+
+        // Gå igenom alla bokningar
+        for (Booking bokning : aktivtBokningsminne) {
+
+            // Lägg till priset för denna bokning
+            totaltBokningsvärde += bokning.getSlutpris();
+
+            // Räkna själva bokningen, inte deltagarna
+            if (bokning.getAktivitetsnummer() == 1) {
+                antalProgrammeringsworkshop++;
+            } else if (bokning.getAktivitetsnummer() == 2) {
+                antalMatlagningskurs++;
+            } else if (bokning.getAktivitetsnummer() == 3) {
+                antalTräningspass++;
+            }
+        }
+
+        // Skriv ut sammanställningen
+        System.out.println("\nSAMMANSTÄLLNING");
+        System.out.println("Totalt antal bokningar: " + totaltAntalBokningar);
+        System.out.format("Totalt bokningsvärde: %,3d kr\n", totaltBokningsvärde);
+        System.out.println("Programmeringsworkshop: " + antalProgrammeringsworkshop + " bokningar");
+        System.out.println("Matlagningskurs: " + antalMatlagningskurs + " bokningar");
+        System.out.println("Träningspass: " + antalTräningspass + " bokningar");
+    }
+
+    //Metod för att beräkna priset för en aktivitet med ett antal deltagare
+    private int prisBeräkning(byte aktivitet, int deltagare){
+        int pris; //Int då inga priser innehåller decimaler
+        if (aktivitet==1) { //Programmeringsworkshop
+            return pris = 200*deltagare; //för 10 deltagare blir det "2000 kr"
+        } else if (aktivitet==2) { //Matlagningskurs
+            return pris = 300*deltagare;
+        } else if (aktivitet==3) { //Träningspass
+            return pris = 150*deltagare;
+        } else {
+            throw new IllegalArgumentException("Aktiviteten finns inte");
         }
     }
 
