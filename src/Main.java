@@ -80,7 +80,6 @@ public class Main {
                     scan.next();
                 }
             }
-
     }
 
     //Metoden som beräkna priset för en bokning med ett antal deltagare
