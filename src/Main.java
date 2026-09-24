@@ -54,7 +54,6 @@ public class Main {
     //Metoden som visar menyn
     void meny(){
         byte menyVal = 0;
-        while(true){
             //Skriv ut meny
             System.out.println("AKTIVITETSBOKAREN\n" + "1. Registrera bokning\n" + "2. Visa alla bokningar\n" + "3. Visa sammanställning\n" + "4. Avsluta");
 
@@ -81,33 +80,6 @@ public class Main {
                     scan.next();
                 }
             }
-
-            //if 4 break
-            if (menyVal == 4){
-                break;
-            }
-
-            //else if 1, skapa bokning
-            else if (menyVal == 1) {
-                registreraBokning();
-            }
-
-            //else if 2, visa alla bokningar
-            else if (menyVal == 2) {
-                visaAllaBokningar();
-            }
-
-            //else if 3, visa sammanställning
-            else if (menyVal == 3) {
-                visaSammanställning();
-            }
-
-            //else ogiltigt, försök igen.
-            else {
-                System.out.println("\nOgiltigt alternativ, försök igen");
-            }
-        }
-
     }
 
     //Metoden som beräkna priset för en bokning med ett antal deltagare
