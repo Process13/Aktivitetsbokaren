@@ -81,10 +81,6 @@ public class Main {
                 }
             }
 
-            {
-                System.out.println("\nOgiltigt alternativ, försök igen");
-            }
-
     }
 
     //Metoden som beräkna priset för en bokning med ett antal deltagare
